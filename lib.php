@@ -15,29 +15,39 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin main file
+ * Library of functions for local_helloworld
  *
  * @package     local_helloworld
  * @copyright   2024 Edisson Sigua <edissonf.sigua@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../config.php');
-require_once($CFG->dirroot. '/local/helloworld/lib.php');
+/**
+ *  Obtener un mensaje basado en el idioma preferido del usuario
+ *
+ * @param \stdClass $user
+ * @return string
+ */
+function local_helloworld_get_greeting($user) {
+    if ($user == null) {
+        return get_string('greetinguser', 'local_helloworld');
+    }
 
-$context = context_system::instance();
-$PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/local/helloworld/index.php'));
-$PAGE->set_pagelayout('standard');
-$PAGE->set_title($SITE->fullname);
-$PAGE->set_heading(get_string('pluginname', 'local_helloworld'));
+    $lang = $user->lang;
+    switch ($lang) {
+        case 'es':
+            $langstr = 'greetinguseres';
+            break;
+        case 'fr':
+            $langstr = 'greetinguserfr';
+            break;
+        case 'it':
+            $langstr = 'greetinguserit';
+            break;
+        default:
+            $langstr = 'greetingloggedinuser';
+            break;
+    }
 
-echo $OUTPUT->header();
-
-if (isloggedin()) {
-    echo local_helloworld_get_greeting($USER);
-} else {
-    echo get_string('greetinguser', 'local_helloworld');
+    return get_string($langstr, 'local_helloworld', fullname($user));
 }
-
-echo $OUTPUT->footer();

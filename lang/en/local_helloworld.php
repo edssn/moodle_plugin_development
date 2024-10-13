@@ -26,3 +26,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Hello World';
+
+$string['greetinguser'] = 'Hello User';
+$string['greetingloggedinuser'] = 'Hello {$a}';
+
+$string['greetinguseres'] = 'Hola {$a}';
+$string['greetinguserfr'] = 'Bonjour {$a}';
+$string['greetinguserit'] = 'Ciao {$a}';
