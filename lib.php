@@ -51,3 +51,16 @@ function local_helloworld_get_greeting($user) {
 
     return get_string($langstr, 'local_helloworld', fullname($user));
 }
+
+/**
+ * Inserta un enlace a index.php en el menu de navegacion de la pagina principal
+ *
+ * @param navigation_node $frontpage Nodo que almacena la pagina principal en el arbol de navegacion
+ */
+function local_helloworld_extend_navigation_frontpage(navigation_node $frontpage) {
+    $frontpage->add(
+        get_string('pluginname', 'local_helloworld'),
+        new moodle_url('/local/helloworld/index.php'),
+        navigation_node::TYPE_CUSTOM
+    );
+}
