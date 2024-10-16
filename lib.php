@@ -64,3 +64,22 @@ function local_helloworld_extend_navigation_frontpage(navigation_node $frontpage
         navigation_node::TYPE_CUSTOM
     );
 }
+
+/**
+ * Inserta un enlace a index.php en el menu de navegacion de la pagina principal con el tema Clasico
+ *
+ * @param navigation_node $frontpage Nodo que almacena la pagina principal en el arbol de navegacion
+ */
+function local_helloworld_extend_navigation(global_navigation $root) {
+    $node = navigation_node::create(
+        get_string('pluginname', 'local_helloworld'),
+        new moodle_url('/local/helloworld/index.php'),
+        navigation_node::TYPE_CUSTOM,
+        null,
+        null,
+        new pix_icon('t/message', '')
+    );
+
+    $node->showinflatnavigation = true;
+    $root->add_node($node);
+}
