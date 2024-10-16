@@ -33,3 +33,5 @@ $string['greetingloggedinuser'] = 'Hello {$a}';
 $string['greetinguseres'] = 'Hola {$a}';
 $string['greetinguserfr'] = 'Bonjour {$a}';
 $string['greetinguserit'] = 'Ciao {$a}';
+
+$string['textinfoinput'] = 'Write a message';

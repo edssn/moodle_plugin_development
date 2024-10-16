@@ -15,40 +15,32 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin main file
+ * Form library file
  *
  * @package     local_helloworld
  * @copyright   2024 Edisson Sigua <edissonf.sigua@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../config.php');
-require_once($CFG->dirroot. '/local/helloworld/lib.php');
+namespace local_helloworld\form;
 
-$context = context_system::instance();
-$PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/local/helloworld/index.php'));
-$PAGE->set_pagelayout('standard');
-$PAGE->set_title($SITE->fullname);
-$PAGE->set_heading(get_string('pluginname', 'local_helloworld'));
+defined('MOODLE_INTERNAL') || die();
 
-$messageform = new \local_helloworld\form\message_form();
+require_once($CFG->libdir . '/formslib.php');
+/**
+ * Clase de Definicion de un formulario
+ */
+class message_form extends \moodleform {
+    /**
+     * Definicion de formulario
+     */
+    public function definition() {
+        $mform = $this->_form;
 
-echo $OUTPUT->header();
+        $mform->addElement('textarea', 'message', get_string('textinfoinput', 'local_helloworld'));
+        $mform->setType('message', PARAM_TEXT);
 
-if (isloggedin()) {
-    echo local_helloworld_get_greeting($USER);
-} else {
-    echo get_string('greetinguser', 'local_helloworld');
+        $submitlabel = get_string('submit');
+        $mform->addElement('submit', 'submitmessage', $submitlabel);
+    }
 }
-
-if ($data = $messageform->get_data()) {
-    var_dump($data);
-
-    $message = required_param('message', PARAM_TEXT);
-    echo $OUTPUT->heading($message);
-}
-
-$messageform->display();
-
-echo $OUTPUT->footer();
