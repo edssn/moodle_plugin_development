@@ -35,3 +35,5 @@ $string['greetinguserfr'] = 'Bonjour {$a}';
 $string['greetinguserit'] = 'Ciao {$a}';
 
 $string['textinfoinput'] = 'Write a message';
+
+$string['postedby'] = 'Posted by {$a}.';
