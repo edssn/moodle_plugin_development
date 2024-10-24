@@ -36,6 +36,7 @@ $messageform = new \local_helloworld\form\message_form();
 
 if ($data = $messageform->get_data()) {
     $message = required_param('message', PARAM_TEXT);
+
     if (!empty($message) && !empty(trim($message))) {
         $record = new stdClass;
         $record->message = $message;
