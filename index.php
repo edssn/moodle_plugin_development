@@ -34,6 +34,20 @@ $PAGE->set_heading(get_string('pluginname', 'local_helloworld'));
 
 $messageform = new \local_helloworld\form\message_form();
 
+if ($data = $messageform->get_data()) {
+    $message = required_param('message', PARAM_TEXT);
+    if (!empty($message) && !empty(trim($message))) {
+        $record = new stdClass;
+        $record->message = $message;
+        $record->timecreated = time();
+
+        $DB->insert_record('local_helloworld_messages', $record);
+
+        redirect(new moodle_url('/local/helloworld/index.php'));
+    }
+}
+
+
 echo $OUTPUT->header();
 
 if (isloggedin()) {
@@ -42,13 +56,23 @@ if (isloggedin()) {
     echo get_string('greetinguser', 'local_helloworld');
 }
 
-if ($data = $messageform->get_data()) {
-    var_dump($data);
+$messageform->display();
 
-    $message = required_param('message', PARAM_TEXT);
-    echo $OUTPUT->heading($message);
+$messages = $DB->get_records('local_helloworld_messages', null, 'timecreated ASC');
+
+echo $OUTPUT->box_start('card-columns');
+
+foreach ($messages as $m) {
+    echo html_writer::start_tag('div', ['class' => 'card']);
+    echo html_writer::start_tag('div', ['class' => 'card-body']);
+    echo html_writer::tag('p', $m->message, ['class' => 'card-text']);
+    echo html_writer::start_tag('p', ['class' => 'card-text']);
+    echo html_writer::tag('small', userdate($m->timecreated), ['class' => 'card-muted']);
+    echo html_writer::end_tag('p');
+    echo html_writer::end_tag('div');
+    echo html_writer::end_tag('div');
 }
 
-$messageform->display();
+echo $OUTPUT->box_end();
 
 echo $OUTPUT->footer();
