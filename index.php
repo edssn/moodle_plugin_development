@@ -32,6 +32,12 @@ $PAGE->set_pagelayout('standard');
 $PAGE->set_title($SITE->fullname);
 $PAGE->set_heading(get_string('pluginname', 'local_helloworld'));
 
+require_login();
+
+if (isguestuser()) {
+    throw new moodle_exception("noguest");
+}
+
 $messageform = new \local_helloworld\form\message_form();
 
 if ($data = $messageform->get_data()) {
