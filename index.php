@@ -81,7 +81,7 @@ echo $OUTPUT->box_start('card-columns');
 foreach ($messages as $m) {
     echo html_writer::start_tag('div', ['class' => 'card']);
     echo html_writer::start_tag('div', ['class' => 'card-body']);
-    echo html_writer::tag('p', $m->message, ['class' => 'card-text']);
+    echo html_writer::tag('p', format_text($m->message), ['class' => 'card-text']);
     echo html_writer::tag('p', get_string('postedby', 'local_helloworld', $m->firstname), ['class' => 'card-text']);
     echo html_writer::start_tag('p', ['class' => 'card-text']);
     echo html_writer::tag('small', userdate($m->timecreated), ['class' => 'card-muted']);
