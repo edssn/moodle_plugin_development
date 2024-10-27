@@ -15,28 +15,29 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin strings are defined here.
+ * Plugin capabilities file
  *
  * @package     local_helloworld
- * @category    string
  * @copyright   2024 Edisson Sigua <edissonf.sigua@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Hello World';
-
-$string['greetinguser'] = 'Hello User';
-$string['greetingloggedinuser'] = 'Hello {$a}';
-
-$string['greetinguseres'] = 'Hola {$a}';
-$string['greetinguserfr'] = 'Bonjour {$a}';
-$string['greetinguserit'] = 'Ciao {$a}';
-
-$string['textinfoinput'] = 'Write a message';
-
-$string['postedby'] = 'Posted by {$a}.';
-
-$string['helloworld:postmessages'] = 'Post a new Message';
-$string['helloworld:viewmessages'] = 'View Messages';
+$capabilities = [
+    'local/helloworld:postmessages' => [
+        'riskbitmask' => RISK_SPAM,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [
+            'user' => CAP_ALLOW,
+        ],
+    ],
+    'local/helloworld:viewmessages' => [
+        'riskbitmask' => RISK_SPAM,
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [
+            'user' => CAP_ALLOW,
+        ],
+    ],
+];
