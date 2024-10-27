@@ -39,6 +39,16 @@ if (isguestuser()) {
 }
 
 $allowpost = has_capability('local/helloworld:postmessages', $context);
+$deleteanypost = has_capability('local/helloworld:deleteanymessage', $context);
+
+$action = optional_param('action', '', PARAM_TEXT);
+
+if ($action == 'del') {
+    $id = required_param('id', PARAM_TEXT);
+
+    $DB->delete_records('local_helloworld_messages', ['id' => $id]);
+}
+
 
 $messageform = new \local_helloworld\form\message_form();
 
@@ -92,6 +102,20 @@ if (has_capability('local/helloworld:viewmessages', $context)) {
         echo html_writer::start_tag('p', ['class' => 'card-text']);
         echo html_writer::tag('small', userdate($m->timecreated), ['class' => 'card-muted']);
         echo html_writer::end_tag('p');
+
+        if ($deleteanypost) {
+            echo html_writer::start_tag('p', ['class' => 'card-footer text-center']);
+            echo html_writer::link(
+                new moodle_url(
+                    '/local/helloworld/index.php',
+                    ['action' => 'del', 'id' => $m->id, 'sesskey' => sesskey()]
+                ),
+                $OUTPUT->pix_icon('t/delete', ''),
+                ['role' => 'button', 'aria-label' => get_string('delete'), 'title' => get_string('delete')]
+            );
+            echo html_writer::end_tag('p');
+        }
+
         echo html_writer::end_tag('div');
         echo html_writer::end_tag('div');
     }
