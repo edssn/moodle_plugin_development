@@ -44,6 +44,8 @@ $deleteanypost = has_capability('local/helloworld:deleteanymessage', $context);
 $action = optional_param('action', '', PARAM_TEXT);
 
 if ($action == 'del') {
+    require_capability('local/helloworld:deleteanymessage',$context);
+
     $id = required_param('id', PARAM_TEXT);
 
     $DB->delete_records('local_helloworld_messages', ['id' => $id]);
