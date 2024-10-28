@@ -41,3 +41,4 @@ $string['postedby'] = 'Posted by {$a}.';
 $string['helloworld:postmessages'] = 'Post a new Message';
 $string['helloworld:viewmessages'] = 'View Messages';
 $string['helloworld:deleteanymessage'] = 'Delete any Message';
+$string['helloworld:deleteownmessage'] = 'Delete own Message';

@@ -40,15 +40,27 @@ if (isguestuser()) {
 
 $allowpost = has_capability('local/helloworld:postmessages', $context);
 $deleteanypost = has_capability('local/helloworld:deleteanymessage', $context);
+$deletepost = has_capability('local/helloworld:deleteownmessage', $context);
 
 $action = optional_param('action', '', PARAM_TEXT);
 
 if ($action == 'del') {
-    require_capability('local/helloworld:deleteanymessage',$context);
+    require_sesskey();
 
-    $id = required_param('id', PARAM_TEXT);
+    if ($deleteanypost || $deletepost) {
+        $id = required_param('id', PARAM_TEXT);
 
-    $DB->delete_records('local_helloworld_messages', ['id' => $id]);
+        $params = ['id' => $id];
+
+        if (!$deleteanypost) {
+            $params += ['userid' => $USER->id];
+        }
+
+        $DB->delete_records('local_helloworld_messages', $params);
+
+        redirect($PAGE->url);
+    }
+
 }
 
 
@@ -105,7 +117,7 @@ if (has_capability('local/helloworld:viewmessages', $context)) {
         echo html_writer::tag('small', userdate($m->timecreated), ['class' => 'card-muted']);
         echo html_writer::end_tag('p');
 
-        if ($deleteanypost) {
+        if ($deleteanypost || ($deletepost && $m->userid == $USER->id)) {
             echo html_writer::start_tag('p', ['class' => 'card-footer text-center']);
             echo html_writer::link(
                 new moodle_url(
