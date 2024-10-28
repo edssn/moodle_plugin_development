@@ -66,7 +66,7 @@ if ($data = $messageform->get_data()) {
 
         $DB->insert_record('local_helloworld_messages', $record);
 
-        redirect(new moodle_url('/local/helloworld/index.php'));
+        redirect($PAGE->url);
     }
 }
 
