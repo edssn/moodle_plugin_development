@@ -15,33 +15,27 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin strings are defined here.
+ * Plugin settings file
  *
  * @package     local_helloworld
- * @category    string
  * @copyright   2024 Edisson Sigua <edissonf.sigua@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Hello World';
+if ($hassiteconfig) {
+    $setting = new admin_settingpage('local_helloworld', get_string('pluginname', 'local_helloworld'));
+    $ADMIN->add('localplugins', $setting);
 
-$string['greetinguser'] = 'Hello User';
-$string['greetingloggedinuser'] = 'Hello {$a}';
+    if ($ADMIN->fulltree) {
+        require_once($CFG->dirroot . '/local/helloworld/lib.php');
 
-$string['greetinguseres'] = 'Hola {$a}';
-$string['greetinguserfr'] = 'Bonjour {$a}';
-$string['greetinguserit'] = 'Ciao {$a}';
-
-$string['textinfoinput'] = 'Write a message';
-
-$string['postedby'] = 'Posted by {$a}.';
-
-$string['helloworld:postmessages'] = 'Post a new Message';
-$string['helloworld:viewmessages'] = 'View Messages';
-$string['helloworld:deleteanymessage'] = 'Delete any Message';
-$string['helloworld:deleteownmessage'] = 'Delete own Message';
-
-$string['messagecardbgcolor'] = 'Message card color';
-$string['messagecardbgcolordesc'] = 'Background color of the card';
+        $setting->add(new admin_setting_configtext(
+            'local_helloworld/messagecardbgcolor',
+            get_string('messagecardbgcolor', 'local_helloworld'),
+            get_string('messagecardbgcolordesc', 'local_helloworld'),
+            '#FFFFFF',
+        ));
+    }
+}

@@ -108,8 +108,10 @@ if (has_capability('local/helloworld:viewmessages', $context)) {
 
     echo $OUTPUT->box_start('card-columns');
 
+    $cardbgcolor = get_config('local_helloworld', 'messagecardbgcolor');
+
     foreach ($messages as $m) {
-        echo html_writer::start_tag('div', ['class' => 'card']);
+        echo html_writer::start_tag('div', ['class' => 'card', 'style' => "background: $cardbgcolor"]);
         echo html_writer::start_tag('div', ['class' => 'card-body']);
         echo html_writer::tag('p', format_text($m->message), ['class' => 'card-text']);
         echo html_writer::tag('p', get_string('postedby', 'local_helloworld', $m->firstname), ['class' => 'card-text']);
