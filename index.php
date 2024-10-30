@@ -126,7 +126,7 @@ if (has_capability('local/helloworld:viewmessages', $context)) {
                     '/local/helloworld/index.php',
                     ['action' => 'del', 'id' => $m->id, 'sesskey' => sesskey()]
                 ),
-                $OUTPUT->pix_icon('t/delete', ''),
+                $OUTPUT->pix_icon('t/delete', '') . get_string('delete'),
                 ['role' => 'button', 'aria-label' => get_string('delete'), 'title' => get_string('delete')]
             );
             echo html_writer::end_tag('p');
