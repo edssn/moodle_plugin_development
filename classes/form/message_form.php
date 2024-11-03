@@ -40,6 +40,16 @@ class message_form extends \moodleform {
         $mform->addElement('textarea', 'message', get_string('textinfoinput', 'local_helloworld'));
         $mform->setType('message', PARAM_TEXT);
 
+        /* Editing form */
+        if (isset($this->_customdata['message'])) {
+            $message = $this->_customdata['message'];
+
+            $mform->addElement('hidden', 'id', $message->id);
+            $mform->setType('id', PARAM_INT);
+
+            $mform->setDefault('message', $message->message);
+        }
+
         $submitlabel = get_string('submit');
         $mform->addElement('submit', 'submitmessage', $submitlabel);
     }

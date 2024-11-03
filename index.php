@@ -121,14 +121,25 @@ if (has_capability('local/helloworld:viewmessages', $context)) {
 
         if ($deleteanypost || ($deletepost && $m->userid == $USER->id)) {
             echo html_writer::start_tag('p', ['class' => 'card-footer text-center']);
+
+            echo html_writer::link(
+                new moodle_url(
+                    '/local/helloworld/edit.php',
+                    ['id' => $m->id]
+                ),
+                $OUTPUT->pix_icon('t/edit', '') . get_string('edit'),
+                ['role' => 'button', 'class' => 'card-link', 'aria-label' => get_string('edit'), 'title' => get_string('edit')]
+            );
+
             echo html_writer::link(
                 new moodle_url(
                     '/local/helloworld/index.php',
                     ['action' => 'del', 'id' => $m->id, 'sesskey' => sesskey()]
                 ),
                 $OUTPUT->pix_icon('t/delete', '') . get_string('delete'),
-                ['role' => 'button', 'aria-label' => get_string('delete'), 'title' => get_string('delete')]
+                ['role' => 'button', 'class' => 'card-link', 'aria-label' => get_string('delete'), 'title' => get_string('delete')]
             );
+
             echo html_writer::end_tag('p');
         }
 

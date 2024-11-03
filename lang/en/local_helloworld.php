@@ -45,3 +45,6 @@ $string['helloworld:deleteownmessage'] = 'Delete own Message';
 
 $string['messagecardbgcolor'] = 'Message card color';
 $string['messagecardbgcolordesc'] = 'Background color of the card';
+
+$string['editmessage'] = 'Edit Message';
+$string['cannoteditmessage'] = 'You cannot edit this message';
