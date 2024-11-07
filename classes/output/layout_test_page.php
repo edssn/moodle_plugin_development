@@ -14,33 +14,42 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
+namespace local_helloworld\output;
+
+use renderable;
+use renderer_base;
+use templatable;
+use stdClass;
+
 /**
- * Plugin main file
+ * Class layout_test_page
  *
  * @package     local_helloworld
  * @copyright   2024 Edisson Sigua <edissonf.sigua@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class layout_test_page implements renderable, templatable {
 
-require_once('../../config.php');
-require_once($CFG->dirroot. '/local/helloworld/lib.php');
+    /** @var string $sometext Some text */
+    private $sometext;
 
-$context = context_system::instance();
-$PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/local/helloworld/layout-test.php'));
-$PAGE->set_pagelayout('standard');
-$PAGE->set_title($SITE->fullname);
-$PAGE->set_heading(get_string('pluginname', 'local_helloworld'));
+    /**
+     * Construct for layout_test_page class
+     *
+     * @return stdClass
+     */
+    public function __construct($sometext) {
+        $this->sometext = $sometext;
+    }
 
-require_login();
-
-$output = $PAGE->get_renderer('local_helloworld');
-
-echo $output->header();
-
-$sometext = 'Texto para mostrar';
-$renderable = new \local_helloworld\output\layout_test_page($sometext);
-echo $output->render($renderable);
-
-echo $output->footer();
-
+    /**
+     * Export this data for a mustache remplate
+     *
+     * @return stdClass
+     */
+    public function export_for_template(renderer_base $output) {
+        $data = new stdClass();
+        $data->sometext = $this->sometext;
+        return $data;
+    }
+}

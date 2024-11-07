@@ -14,33 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
+namespace local_helloworld\output;
+
+use plugin_renderer_base;
+
 /**
- * Plugin main file
+ * Renderer for layout_test
  *
  * @package     local_helloworld
  * @copyright   2024 Edisson Sigua <edissonf.sigua@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class renderer extends plugin_renderer_base {
 
-require_once('../../config.php');
-require_once($CFG->dirroot. '/local/helloworld/lib.php');
-
-$context = context_system::instance();
-$PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/local/helloworld/layout-test.php'));
-$PAGE->set_pagelayout('standard');
-$PAGE->set_title($SITE->fullname);
-$PAGE->set_heading(get_string('pluginname', 'local_helloworld'));
-
-require_login();
-
-$output = $PAGE->get_renderer('local_helloworld');
-
-echo $output->header();
-
-$sometext = 'Texto para mostrar';
-$renderable = new \local_helloworld\output\layout_test_page($sometext);
-echo $output->render($renderable);
-
-echo $output->footer();
-
+    /**
+     * Render layout test page
+     *
+     * @return stdClass
+     */
+    public function render_layout_test_page($page): string {
+        $data = $page->export_for_template($this);
+        return parent::render_from_template('local_helloworld/layout-test', $data);
+    }
+}
