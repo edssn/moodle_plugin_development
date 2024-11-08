@@ -86,6 +86,8 @@ $output = $PAGE->get_renderer('local_helloworld');
 
 echo $output->header();
 
+echo $output->render_from_template('local_helloworld/navmenu', []);
+
 if (isloggedin()) {
     echo local_helloworld_get_greeting($USER);
 } else {

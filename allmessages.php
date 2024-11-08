@@ -40,6 +40,18 @@ if (isguestuser()) {
 
 require_capability('local/helloworld:viewmessages', $context);
 
+$homenode = $PAGE->navigation->add(
+    get_string('pluginname', 'local_helloworld'),
+    new moodle_url('/local/helloworld/')
+);
+
+$allmessagesnode = $homenode->add(
+    get_string('allmessages', 'local_helloworld'),
+    $url
+);
+
+$allmessagesnode->make_active();
+
 $output = $PAGE->get_renderer('local_helloworld');
 
 echo $output->header();

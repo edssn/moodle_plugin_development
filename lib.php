@@ -83,3 +83,18 @@ function local_helloworld_extend_navigation(global_navigation $root) {
     $node->showinflatnavigation = true;
     $root->add_node($node);
 }
+
+/**
+ * Inserta un enlace a index.php en la navegación secundaria de un curso.
+ *
+ * @param navigation_node $mynode Nodo que representa el árbol de la navegación secundaria de un curso
+ */
+function local_helloworld_extend_navigation_course(navigation_node $mynode) {
+    if (isloggedin() && !isguestuser()) {
+        $newnode = $mynode->add(
+            get_string('pluginname', 'local_helloworld'),
+            new moodle_url('/local/helloworld/index.php'),
+            navigation_node::TYPE_CUSTOM,
+        );
+    }
+}
