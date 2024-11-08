@@ -48,3 +48,5 @@ $string['messagecardbgcolordesc'] = 'Background color of the card';
 
 $string['editmessage'] = 'Edit Message';
 $string['cannoteditmessage'] = 'You cannot edit this message';
+
+$string['noposts'] = 'There is no posts yet';

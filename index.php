@@ -82,8 +82,9 @@ if ($data = $messageform->get_data()) {
     }
 }
 
+$output = $PAGE->get_renderer('local_helloworld');
 
-echo $OUTPUT->header();
+echo $output->header();
 
 if (isloggedin()) {
     echo local_helloworld_get_greeting($USER);
@@ -106,48 +107,11 @@ if (has_capability('local/helloworld:viewmessages', $context)) {
 
     $messages = $DB->get_records_sql($sql);
 
-    echo $OUTPUT->box_start('card-columns');
+    $renderable = new \local_helloworld\output\index_page($messages);
 
-    $cardbgcolor = get_config('local_helloworld', 'messagecardbgcolor');
+    echo $output->render($renderable);
 
-    foreach ($messages as $m) {
-        echo html_writer::start_tag('div', ['class' => 'card', 'style' => "background: $cardbgcolor"]);
-        echo html_writer::start_tag('div', ['class' => 'card-body']);
-        echo html_writer::tag('p', format_text($m->message), ['class' => 'card-text']);
-        echo html_writer::tag('p', get_string('postedby', 'local_helloworld', $m->firstname), ['class' => 'card-text']);
-        echo html_writer::start_tag('p', ['class' => 'card-text']);
-        echo html_writer::tag('small', userdate($m->timecreated), ['class' => 'card-muted']);
-        echo html_writer::end_tag('p');
-
-        if ($deleteanypost || ($deletepost && $m->userid == $USER->id)) {
-            echo html_writer::start_tag('p', ['class' => 'card-footer text-center']);
-
-            echo html_writer::link(
-                new moodle_url(
-                    '/local/helloworld/edit.php',
-                    ['id' => $m->id]
-                ),
-                $OUTPUT->pix_icon('t/edit', '') . get_string('edit'),
-                ['role' => 'button', 'class' => 'card-link', 'aria-label' => get_string('edit'), 'title' => get_string('edit')]
-            );
-
-            echo html_writer::link(
-                new moodle_url(
-                    '/local/helloworld/index.php',
-                    ['action' => 'del', 'id' => $m->id, 'sesskey' => sesskey()]
-                ),
-                $OUTPUT->pix_icon('t/delete', '') . get_string('delete'),
-                ['role' => 'button', 'class' => 'card-link', 'aria-label' => get_string('delete'), 'title' => get_string('delete')]
-            );
-
-            echo html_writer::end_tag('p');
-        }
-
-        echo html_writer::end_tag('div');
-        echo html_writer::end_tag('div');
-    }
-
-    echo $OUTPUT->box_end();
+    echo $output->box_end();
 }
 
 echo $OUTPUT->footer();

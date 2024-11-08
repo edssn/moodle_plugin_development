@@ -1,0 +1,76 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_helloworld/index
+
+    Example context (json):
+    {
+        "messages" : [
+            { 
+                "id" : "1", 
+                "message" : "Message text 1", 
+                "userid" : "3",
+                "timecreated" : "1730941285",
+                "email" : "correo@gmail.com",
+                "firstname" : "Nombre",
+                "lastname" : "Apellido"
+            },
+            { 
+                "id" : "2", 
+                "message" : "Message text 2", 
+                "userid" : "4",
+                "timecreated" : "1730941285",
+                "email" : "correo@gmail.com",
+                "firstname" : "Nombre",
+                "lastname" : "Apellido"
+            }
+        ],
+        "sesskey" : "AqN10SsGw2",
+        "cardbackgroundcolor" : "#7bf35d"
+    }
+}}
+<div class="box py-3 card-columns">
+{{#messages}}
+    <div class="card" style="background: {{cardbackgroundcolor}}">
+        <div class="card-body">
+            <p class="card-text">{{message}}</p>
+            <p class="card-text">{{#str}} postedby, local_helloworld, {{firstname}} {{/str}}</p>
+            <p class="card-text">
+                <small class="text-muted">
+                    {{#userdate}} {{timecreated}}, {{#str}} strftimedaydatetime, core_langconfig {{/str}} {{/userdate}}
+                </small>
+            </p>
+            {{#candelete}}
+            <p class="card-footer text-center">
+                <a role="button" class="card-link" href="{{config.wwwroot}}/local/helloworld/edit.php?id={{id}}">
+                    {{#pix}} i/edit, core, {{#str}} edit {{/str}} {{/pix}} {{#str}} edit {{/str}}
+                </a>
+                <a role="button" class="card-link" href="{{config.wwwroot}}/local/helloworld/index.php?id={{id}}&action=del&sesskey={{sesskey}}">
+                    {{#pix}} t/delete, core, {{#str}} delete {{/str}} {{/pix}} {{#str}} delete {{/str}}
+                </a>
+            </p>
+            {{/candelete}}
+        </div>
+    </div>
+{{/messages}}
+{{^messages}}
+    <div class="alert alert-warning d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div> {{#str}} noposts, local_helloworld {{/str}} </div>
+    </div>
+{{/messages}}
+</div>
