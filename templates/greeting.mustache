@@ -23,13 +23,27 @@
     {
     }
 }}
+<div class="w-25 py-1">
+    <input type="text"
+        name="name"
+        class="form-control"
+        placeholder="{{#str}}entername, local_helloworld{{/str}}"
+        aria-label="{{#str}}entername, local_helloworld{{/str}}"
+    />
+</div>
 <div>
-    <p>Contenido</p>
-    <p>{{first}}</p>
-    <p>{{second}}</p>
+    <button class="btn btn-primary">{{#str}}go{{/str}}
+    </button>
+    <button class="btn btn-secondary">{{#str}}reset{{/str}}
+    </button>
+</div>
+<div class="py-2">
 </div>
 
 {{#js}}
+require(['local_helloworld/greeting'], function(module) {
+    module.init({{userid}});
+});
 require(['local_helloworld/helloworld'], function(module) {
     module.init('{{first}}','{{second}}');
 });

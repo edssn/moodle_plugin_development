@@ -52,3 +52,5 @@ $string['cannoteditmessage'] = 'You cannot edit this message';
 $string['noposts'] = 'There is no posts yet';
 
 $string['allmessages'] = 'All messages';
+
+$string['entername'] = 'Enter name';

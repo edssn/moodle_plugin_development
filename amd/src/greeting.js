@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,32 +14,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin javascript example file
+ * JavaScript module greeting
  *
- * @package    local_helloworld
+ * @module     local_helloworld/greetings
  * @copyright  2024 Edisson Sigua <edissonf.sigua@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require('../../config.php');
-
-require_login();
-
-$url = new moodle_url('/local/helloworld/view.php', []);
-$PAGE->set_url($url);
-$PAGE->set_context(context_system::instance());
-$PAGE->set_title(get_string('pluginname', 'local_helloworld'));
-$PAGE->set_heading(get_string('pluginname', 'local_helloworld'));
-
-$output = $PAGE->get_renderer('local_helloworld');
-
-$first  = "Parametro 1";
-$second = "Parametro 2";
-
-echo $output->header();
-echo $output->render_from_template('local_helloworld/greeting', [
-    'first' => $first,
-    'second' => $second,
-    'userid' => $USER->id,
-]);
-echo $output->footer();
+/**
+ *
+ * @param {Number} userid
+ */
+export const init = (userid) => {
+    window.console.log({userid});
+};
