@@ -22,6 +22,7 @@
  */
 
 import Selectors from 'local_helloworld/local/greeting/selectors';
+import * as Repository from 'local_helloworld/local/greeting/repository';
 import * as Str from 'core/str';
 
 /**
@@ -37,10 +38,14 @@ export const init = (userid) => {
  * @param {Number} userid
  */
 const registerEventListeners = (userid) => {
-    window.console.log({userid});
     document.addEventListener('click', e => {
         if (e.target.closest(Selectors.actions.showGreetingButton)) {
             const greetingBlock = document.querySelector(Selectors.regions.greetingBlock);
+
+            Repository.getUser(userid)
+            .then(function(response) {
+                window.console.log({ user: response[0] });
+            });
 
             if (greetingBlock) {
                 const nameField = document.querySelector(Selectors.regions.inputField);
