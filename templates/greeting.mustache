@@ -26,6 +26,7 @@
 <div class="w-25 py-1">
     <input type="text"
         name="name"
+        data-region="local_helloworld/helloworld-input"
         class="form-control"
         placeholder="{{#str}}entername, local_helloworld{{/str}}"
         aria-label="{{#str}}entername, local_helloworld{{/str}}"
@@ -39,7 +40,7 @@
             class="btn btn-secondary">{{#str}}reset{{/str}}
     </button>
 </div>
-<div class="py-2">
+<div data-region="local_helloworld/helloworld-usergreeting" class="py-2">
 </div>
 
 {{#js}}

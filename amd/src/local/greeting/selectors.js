@@ -26,4 +26,8 @@ export default {
         showGreetingButton: '[data-action="local_helloworld/helloworld-greet_button"]',
         resetButton: '[data-action="local_helloworld/helloworld-reset_button"]',
     },
+    regions: {
+        greetingBlock: '[data-region="local_helloworld/helloworld-usergreeting"]',
+        inputField: '[data-region="local_helloworld/helloworld-input"]',
+    },
 };

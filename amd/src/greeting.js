@@ -22,6 +22,7 @@
  */
 
 import Selectors from 'local_helloworld/local/greeting/selectors';
+import * as Str from 'core/str';
 
 /**
  *
@@ -39,10 +40,36 @@ const registerEventListeners = (userid) => {
     window.console.log({userid});
     document.addEventListener('click', e => {
         if (e.target.closest(Selectors.actions.showGreetingButton)) {
-            window.console.log('Clic en el boton Ir');
+            const greetingBlock = document.querySelector(Selectors.regions.greetingBlock);
+
+            if (greetingBlock) {
+                const nameField = document.querySelector(Selectors.regions.inputField);
+                const msg = document.createElement("h3");
+
+                userGreeting(nameField.value)
+                .then((greetingStr) => {
+                    msg.append(greetingStr);
+                    greetingBlock.append(msg);
+                    nameField.value = '';
+                })
+                .catch();
+
+            }
         }
         if (e.target.closest(Selectors.actions.resetButton)) {
-            window.console.log('Clic en el boton Reset');
+            const nameField = document.querySelector(Selectors.regions.inputField);
+            nameField.value = '';
+
+            const greetingBlock = document.querySelector(Selectors.regions.greetingBlock);
+            greetingBlock.innerHTML  = '';
         }
     });
 };
+
+/**
+ * Return a personalised greeting.
+ *
+ * @param   {String} name The name of the person to greet
+ * @returns {Promise}
+ */
+const userGreeting = (name) => Str.get_string('greetinguseres', 'local_helloworld', name);
