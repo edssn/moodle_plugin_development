@@ -14,35 +14,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * JavaScript module greeting
+ * Javascript Greeting module selectors
  *
- * @module     local_helloworld/greetings
- * @copyright  2024 Edisson Sigua <edissonf.sigua@gmail.com>
+ * @module     local_helloworld/local/greetings/selectors
+ * @copyright  2024 YOUR NAME <your@email.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-import Selectors from 'local_helloworld/local/greeting/selectors';
-
-/**
- *
- * @param {Number} userid
- */
-export const init = (userid) => {
-    registerEventListeners(userid);
-};
-
-/**
- *
- * @param {Number} userid
- */
-const registerEventListeners = (userid) => {
-    window.console.log({userid});
-    document.addEventListener('click', e => {
-        if (e.target.closest(Selectors.actions.showGreetingButton)) {
-            window.console.log('Clic en el boton Ir');
-        }
-        if (e.target.closest(Selectors.actions.resetButton)) {
-            window.console.log('Clic en el boton Reset');
-        }
-    });
+export default {
+    actions: {
+        showGreetingButton: '[data-action="local_helloworld/helloworld-greet_button"]',
+        resetButton: '[data-action="local_helloworld/helloworld-reset_button"]',
+    },
 };
