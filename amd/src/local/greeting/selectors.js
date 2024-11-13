@@ -23,11 +23,11 @@
 
 export default {
     actions: {
-        showGreetingButton: '[data-action="local_helloworld/helloworld-greet_button"]',
-        resetButton: '[data-action="local_helloworld/helloworld-reset_button"]',
+        showGreetingButton: '[data-action="local_helloworld/greeting-greet_button"]',
+        resetButton: '[data-action="local_helloworld/greeting-reset_button"]',
     },
     regions: {
-        greetingBlock: '[data-region="local_helloworld/helloworld-usergreeting"]',
-        inputField: '[data-region="local_helloworld/helloworld-input"]',
+        greetingBlock: '[data-region="local_helloworld/greeting-usergreeting"]',
+        inputField: '[data-region="local_helloworld/greeting-input"]',
     },
 };

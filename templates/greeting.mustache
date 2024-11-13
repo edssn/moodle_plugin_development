@@ -15,7 +15,7 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template local_helloworld/helloworld
+    @template local_helloworld/greeting
 
     TODO describe template helloworld
 
@@ -26,21 +26,21 @@
 <div class="w-25 py-1">
     <input type="text"
         name="name"
-        data-region="local_helloworld/helloworld-input"
+        data-region="local_helloworld/greeting-input"
         class="form-control"
         placeholder="{{#str}}entername, local_helloworld{{/str}}"
         aria-label="{{#str}}entername, local_helloworld{{/str}}"
     />
 </div>
 <div>
-    <button data-action="local_helloworld/helloworld-greet_button"
+    <button data-action="local_helloworld/greeting-greet_button"
             class="btn btn-primary">{{#str}}go{{/str}}
     </button>
-    <button data-action="local_helloworld/helloworld-reset_button"
+    <button data-action="local_helloworld/greeting-reset_button"
             class="btn btn-secondary">{{#str}}reset{{/str}}
     </button>
 </div>
-<div data-region="local_helloworld/helloworld-usergreeting" class="py-2">
+<div data-region="local_helloworld/greeting-usergreeting" class="py-2">
 </div>
 
 {{#js}}
