@@ -54,3 +54,5 @@ $string['noposts'] = 'There is no posts yet';
 $string['allmessages'] = 'All messages';
 
 $string['entername'] = 'Enter name';
+
+$string['emptymessage'] = 'Empty message';
